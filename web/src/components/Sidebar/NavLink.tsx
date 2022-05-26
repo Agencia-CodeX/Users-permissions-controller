@@ -5,9 +5,10 @@ interface NavLinkProps extends ChakraLinkProps {
     icon?: ElementType;
     children: string;
     active?: boolean;
+    hoverColor: string;
 }
 
-export function NavLink({ icon, children, active = false, ...rest }: NavLinkProps) {
+export function NavLink({ icon, children, active = false, hoverColor, ...rest }: NavLinkProps) {
     return (
         <Link
             w="full"
@@ -21,7 +22,7 @@ export function NavLink({ icon, children, active = false, ...rest }: NavLinkProp
             boxShadow="0 5px 5px rgba(0,0,0,.3)"
             _hover={{
                 textDecoration: "none",
-                bgColor: "lightBlue.100"
+                bgColor: hoverColor
             }}
             {...rest}
         >

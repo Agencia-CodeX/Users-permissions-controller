@@ -5,29 +5,30 @@ interface BoxNotificationProps {
     icon: ElementType;
     content: string;
     count: string;
-    color?: boolean;
+    buttonColor: string;
+    hoverColor: string;
 }
 
-export function BoxNotification({ icon, content, count, color = false }: BoxNotificationProps) {
+export function BoxNotification({ icon, content, count, buttonColor, hoverColor }: BoxNotificationProps) {
     return (
         <Flex>
             <Link
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
+                minW="200px"
                 h="140px"
-                backgroundColor={color ? 'red.500' : 'darkBlue.100'}
+                bgColor={`${buttonColor}`}
                 flex-flexDirection="col"
                 borderRadius="4px"
-                minW="200px"
                 p="10px"
                 gap="10px"
-                _hover={{backgroundColor: color ? 'red.700' : 'lightBlue.100' }}
+                _hover={{ backgroundColor: hoverColor }}
             >
                 <Icon as={icon} fontSize="40px" />
                 <Text as="h1">{content}</Text>
                 <Text>{count}</Text>
             </Link>
-        </Flex>
+        </Flex >
     );
 }

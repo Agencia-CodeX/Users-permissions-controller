@@ -14,6 +14,7 @@ export default function Home() {
         alignItems="center"
         justify="center"
         flexDirection="column"
+
       >
         <Text as="h1" mb="20px">Login</Text>
         <Flex
