@@ -59,6 +59,11 @@ export function ChartComponent({ type, size, labels }: ChartProps) {
 
 
     return (
-        <Chart options={options} series={series} type={type} width={size} />
+        <Chart 
+            options={options} 
+            series={series} 
+            type={type} 
+            width={size} 
+        />
     );
 }

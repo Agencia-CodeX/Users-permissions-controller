@@ -3,13 +3,11 @@ import { ChartComponent } from "../components/ChartComponent";
 import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
 import { useQuery } from "react-query";
+import { api } from "../services/api";
+import { useUsers } from "../services/hooks/useUsers";
 
 export default function Dashboard() {
-    const { data, isLoading, error } = useQuery('recentAddedUsers', async () => {
-        const response = await fetch('http://localhost:3000/api/users');
-        const data = await response.json();
-        return data;
-    })
+    const { data, isLoading, isFetching, error, } = useUsers();
 
     const isWideVersion = useBreakpointValue({
         base: false,
@@ -63,7 +61,10 @@ export default function Dashboard() {
                             maxW="800px"
                             mx="auto"
                         >
-                            <Text m="0 auto" fontSize={["16px", "20px"]}>Ultimos usuarios cadastrados</Text>
+                            <Flex gap="40px">
+                                <Text m="0 auto" fontSize={["16px", "20px"]}>Ultimos usuarios cadastrados</Text>
+                                {!isLoading && isFetching && <Spinner />}
+                            </Flex>
                             {isLoading ? (
                                 <Flex h="100%" align="center">
                                     <Spinner />
@@ -71,7 +72,7 @@ export default function Dashboard() {
                             ) : (
                                 <Table>
                                     <Tbody>
-                                        {data.users.map(user => {
+                                        {data.map(user => {
                                             return (
                                                 <Tr key={user.id}>
                                                     <Td w="25%"><Avatar src={user.image} name={user.name} /></Td>

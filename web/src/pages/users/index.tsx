@@ -1,14 +1,13 @@
-import { Flex, Box, Heading, Link, Table, Thead, Tr, Th, Checkbox, useBreakpointValue, Tbody, Spinner, Td, Text } from "@chakra-ui/react";
+import { Flex, Box, Heading, Link, Table, Thead, Tr, Th, Checkbox, useBreakpointValue, Tbody, Spinner, Td, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormLabel, Select, } from "@chakra-ui/react";
+import { Input } from "../../components/Form/Input";
 import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
-import { useQuery } from "react-query";
+import { useUsers } from "../../services/hooks/useUsers";
+
 
 export default function Users() {
-    const { data, isLoading, error } = useQuery('users', async () => {
-        const response = await fetch('http://localhost:3000/api/users');
-        const data = await response.json();
-        return data;
-    })
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { data, isLoading, error } = useUsers();
 
     const isWideVersion = useBreakpointValue({
         base: false,
@@ -35,6 +34,7 @@ export default function Users() {
                     >
                         <Heading>Usuarios</Heading>
                         <Link
+                            onClick={onOpen}
                             w="100px"
                             textAlign="center"
                             lineHeight="40px"
@@ -52,10 +52,9 @@ export default function Users() {
                     {isLoading
                         ? <Flex w="90%" h="40vh" align="center" justify="center">
                             <Spinner />
-                         </Flex>
+                        </Flex>
                         :
                         <Table>
-
                             <Thead>
                                 <Tr borderBottom={{ base: "none" }}>
                                     <Th><Checkbox backgroundColor="darkBlue.100" /></Th>
@@ -65,7 +64,7 @@ export default function Users() {
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                {data?.users.map(user => {
+                                {data.map(user => {
                                     return (
                                         <Tr key={user.id}>
                                             <Td><Checkbox backgroundColor="darkblue.100" /></Td>
@@ -78,8 +77,41 @@ export default function Users() {
                             </Tbody>
                         </Table>
                     }
-
                 </Box>
+                <Modal
+                    isCentered
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    size={"3xl"}
+                >
+                    <ModalOverlay />
+                    <ModalContent
+                        backgroundColor="darkBlue.100"
+                        p="40px"
+                    >
+                        <ModalHeader>Cadastre um novo usuario</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                            <form>
+                                <Flex gap="20px">
+                                    <Input name="name" type="text" label="Nome" />
+                                    <Input name="email" type="email" label="Email" />
+                                </Flex>
+                                <Box mt="20px">
+                                    <FormLabel htmlFor="role">Função exercida</FormLabel>
+                                    <Select id="role"  mt="20px">
+                                        <option style={{ color: 'white', backgroundColor: "#212936" }}>placeholder</option>
+                                        <option style={{ color: 'white', backgroundColor: "#212936" }}>placeholder</option>
+                                        <option style={{ color: 'white', backgroundColor: "#212936" }}>placeholder</option>
+                                        <option style={{ color: 'white', backgroundColor: "#212936" }}>placeholder</option>
+                                        <option style={{ color: 'white', backgroundColor: "#212936" }}>placeholder</option>
+                                        <option style={{ color: 'white', backgroundColor: "#212936" }}>placeholder</option>
+                                    </Select>
+                                </Box>
+                            </form>
+                        </ModalBody>
+                    </ModalContent>
+                </Modal>
             </Flex>
         </Flex>
     )
