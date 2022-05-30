@@ -49,7 +49,6 @@ export function Header() {
                 <Text fontSize={["16px", "16px", "25px", "30px"]}>Seja bem vindo, Gustavo Soares</Text>
             </Flex>
 
-
             {
                 isWideVersion && (
                     <Flex gap="20px">

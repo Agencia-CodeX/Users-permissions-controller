@@ -1,27 +1,34 @@
-import { Avatar, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Avatar, Box, Flex, Spinner, Table, Tbody, Td, Text, Thead, Tr, useBreakpointValue } from "@chakra-ui/react";
 import { ChartComponent } from "../components/ChartComponent";
 import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
+import { useQuery } from "react-query";
 
 export default function Dashboard() {
+    const { data, isLoading, error } = useQuery('recentAddedUsers', async () => {
+        const response = await fetch('http://localhost:3000/api/users');
+        const data = await response.json();
+        return data;
+    })
+
     const isWideVersion = useBreakpointValue({
         base: false,
         xl: true,
     })
 
     return (
-        <Flex>
+        <Flex
+        >
             <Sidebar />
             <Flex
-                w="full"
-                h="full"
+                w="100%"
                 flexDirection="column"
             >
                 <Header />
                 <Flex
                     w="100%"
                     gap="20px"
-                    p="20px"
+                    p={["0", "20px"]}
                     flexDirection={["column", "column", "column", "column", "row"]}
                 >
                     <Flex
@@ -47,7 +54,7 @@ export default function Dashboard() {
                         <Flex
                             flexDirection="column"
                             width="100%"
-                            h="350px"
+                            // h="350px"
                             p="30px"
                             alignItems="center"
                             backgroundColor="darkBlue.100"
@@ -57,30 +64,30 @@ export default function Dashboard() {
                             mx="auto"
                         >
                             <Text m="0 auto" fontSize={["16px", "20px"]}>Ultimos usuarios cadastrados</Text>
-                            <Flex alignItems="center" w="100%" justify="space-evenly">
-                                <Avatar mr="20px" name="Bruno Vimieiro" src="https:github.com/brunovimieiro.png" />
-                                <Text>Bruno vimieiro</Text>
-                                <Text>Função exercida</Text>
-                            </Flex>
-                            <Flex alignItems="center" w="100%" justify="space-evenly">
-                                <Avatar mr="20px" name="Gustavo Soares" src="https:github.com/zankei1.png" />
-                                <Text>Gustavo Soares</Text>
-                                <Text>Função exercida</Text>
-                            </Flex>
-                            <Flex alignItems="center" w="100%" justify="space-evenly">
-                                <Avatar mr="20px" name="Pedro Henrique" src="https:github.com/pedromm65.png" />
-                                <Text>Pedro Henrique</Text>
-                                <Text>Função exercida</Text>
-                            </Flex>
-                            <Flex alignItems="center" w="100%" justify="space-evenly">
-                                <Avatar mr="20px" name="Miguel Marcola" src="https:github.com/miguelmarcola.png" />
-                                <Text>Miguel marcola</Text>
-                                <Text>Função exercida</Text>
-                            </Flex>
+                            {isLoading ? (
+                                <Flex h="100%" align="center">
+                                    <Spinner />
+                                </Flex>
+                            ) : (
+                                <Table>
+                                    <Tbody>
+                                        {data.users.map(user => {
+                                            return (
+                                                <Tr key={user.id}>
+                                                    <Td w="25%"><Avatar src={user.image} name={user.name} /></Td>
+                                                    <Td w="33%"><Text>{user.name}</Text></Td>
+                                                    <Td w="33%"><Text>{user.role}</Text></Td>
+                                                </Tr>
+                                            )
+                                        }
+                                        )}
+                                    </Tbody>
+                                </Table>
+                            )}
                         </Flex>
                     </Flex>
                     <Flex
-                        width={["100%", "100%", "100%", "100%", "50%"]}
+                        width={{ base: '100%', '2xl': '50%' }}
                         align="center"
                         justify="center"
                     >
@@ -100,7 +107,7 @@ export default function Dashboard() {
                                 <Text>
                                     Abertura de chamados nos ultimos 7 dias
                                 </Text>
-                                <ChartComponent type="bar" size={600} labels={[
+                                <ChartComponent type="bar" size={500} labels={[
                                     "Domingo",
                                     "Segunda",
                                     "Terça",

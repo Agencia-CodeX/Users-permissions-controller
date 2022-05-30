@@ -16,7 +16,6 @@ export default function Home() {
         flexDirection="column"
 
       >
-        <Text as="h1" mb="20px">Login</Text>
         <Flex
           as="form"
           w="100%"
@@ -27,6 +26,7 @@ export default function Home() {
           gap="8"
           flexDirection="column"
         >
+          <Text mx="auto" as="h1" fontSize="30px" >Login</Text>
           <Input name="email" type="email" label="E-Mail" />
           <Input name="password" type="password" label="password" />
           <Button

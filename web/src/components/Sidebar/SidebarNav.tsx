@@ -1,4 +1,5 @@
 import { Flex } from "@chakra-ui/react";
+import { RiDashboard2Line } from "react-icons/ri";
 import { NavLink } from "./NavLink";
 
 export function SidebarNav() {
@@ -11,10 +12,10 @@ export function SidebarNav() {
             gap="20px"
             flexDirection="column"
         >
-            <NavLink children="Dashboard" hoverColor="lightBlue.100" active />
-            <NavLink children="Cadastrar usuario" hoverColor="lightBlue.100" />
-            <NavLink children="Ver chamados" hoverColor="lightBlue.100" />
-            <NavLink children="Sair" hoverColor="red.600" />
+            <NavLink href="/dashboard" icon={RiDashboard2Line} hoverColor="lightBlue.100">Dashboard</NavLink>
+            <NavLink href="/users" icon={RiDashboard2Line} hoverColor="lightBlue.100">Listar usuarios</NavLink>
+            <NavLink href="#" icon={RiDashboard2Line} hoverColor="lightBlue.100">Ver chamados</NavLink>
+            <NavLink href="#" icon={RiDashboard2Line} hoverColor="red.600">Sair</NavLink>
         </Flex>
     )
 }

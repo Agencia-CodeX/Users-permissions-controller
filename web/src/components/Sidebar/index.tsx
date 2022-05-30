@@ -29,16 +29,13 @@ export function Sidebar() {
 
     return (
         <Flex
-            w="30%"
-            h="100vh"
-            maxW="400px"
+            minW="400px"
+            minH="100vh"
             bgColor="darkBlue.100"
-            minW="300px"
             flexDirection="column"
         >
             <SidebarProfile />
             <SidebarNav />
-
         </Flex>
     )
 }
