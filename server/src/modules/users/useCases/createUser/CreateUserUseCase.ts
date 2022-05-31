@@ -1,4 +1,5 @@
 import { hash } from "bcryptjs";
+import { AppError } from "src/shared/errors/App.error";
 import { inject, injectable } from "tsyringe";
 
 import { IUsersRepository } from "../../repository/IUsersRepository";
@@ -16,6 +17,12 @@ class CreateUserUseCase {
         private usersRepository: IUsersRepository
     ) {}
     async execute({ email, name, password }: IRequest) {
+        const userAlreadyExists = await this.usersRepository.findByEmail(email);
+
+        if (userAlreadyExists) {
+            throw new AppError("É isso!", 500);
+        }
+
         const passwordHash = await hash(password, 8);
         const user = await this.usersRepository.create({
             email,
