@@ -2,12 +2,10 @@ import { Avatar, Box, Flex, Spinner, Table, Tbody, Td, Text, Thead, Tr, useBreak
 import { ChartComponent } from "../components/ChartComponent";
 import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
-import { useQuery } from "react-query";
-import { api } from "../services/api";
-import { useUsers } from "../services/hooks/useUsers";
+import { getRecentUsers, useUsers } from "../services/hooks/useUsers";
 
 export default function Dashboard() {
-    const { data, isLoading, isFetching, error, } = useUsers();
+    const { data, isLoading, isFetching } = useUsers("recentAddUsers", getRecentUsers, 10);
 
     const isWideVersion = useBreakpointValue({
         base: false,
@@ -27,12 +25,12 @@ export default function Dashboard() {
                     w="100%"
                     gap="20px"
                     p={["0", "20px"]}
-                    flexDirection={["column", "column", "column", "column", "row"]}
+                    flexDirection={{ base: "column", xl: "row" }}
                 >
                     <Flex
                         flexDirection="column"
                         gap="20px"
-                        width={["100%", "100%", "100%", "100%", "50%"]}
+                        width={{ base: "100%", xl: "50%" }}
                     >
                         <Flex
                             flexDirection="column"
@@ -70,7 +68,7 @@ export default function Dashboard() {
                                     <Spinner />
                                 </Flex>
                             ) : (
-                                <Table>
+                                <Table variant={"unstyled"}>
                                     <Tbody>
                                         {data.map(user => {
                                             return (
@@ -88,7 +86,7 @@ export default function Dashboard() {
                         </Flex>
                     </Flex>
                     <Flex
-                        width={{ base: '100%', '2xl': '50%' }}
+                        width={{ base: '100%', '2xl': '45%' }}
                         align="center"
                         justify="center"
                     >
@@ -96,8 +94,6 @@ export default function Dashboard() {
                             <Flex
                                 height="100%"
                                 w="100%"
-                                maxW="980px"
-                                h="720px"
                                 justify="center"
                                 align="center"
                                 flexDirection="column"

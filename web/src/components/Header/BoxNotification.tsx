@@ -16,10 +16,11 @@ export function BoxNotification({ icon, content, count, buttonColor, hoverColor 
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
-                minW="200px"
+                justifyContent="center"
+                w="150px"
                 h="140px"
+                textAlign="center"
                 bgColor={`${buttonColor}`}
-                flex-flexDirection="col"
                 borderRadius="4px"
                 p="10px"
                 gap="10px"

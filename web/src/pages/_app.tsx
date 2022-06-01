@@ -2,7 +2,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { SidebarDrawerProvider } from "../contexts/SidebarDrawerContext";
 import { makeServer } from "../services/mirage";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+// import { ReactQueryDevtools } from "react-query/devtools";
 import { theme } from "../styles/theme";
 
 if (process.env.NODE_ENV === 'development') {
@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </SidebarDrawerProvider>
       </ChakraProvider>
-      <ReactQueryDevtools />
+      {/* <ReactQueryDevtools /> */}
     </QueryClientProvider>
   )
 }

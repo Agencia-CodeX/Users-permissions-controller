@@ -38,7 +38,7 @@ export function Header() {
 
             <Flex
                 h="100px"
-                w="800px"
+                w="580px"
                 bgColor="darkBlue.100"
                 alignItems="center"
                 rounded="lg"
