@@ -7,6 +7,9 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --poll --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
     "prisma": "npx prisma generate"
   },
+  "prisma": {
+    "seed": "ts-node-dev prisma/seed.ts"
+  },
   "dependencies": {
     "@prisma/client": "^3.14.0",
     "bcryptjs": "^2.4.3",

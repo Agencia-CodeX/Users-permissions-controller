@@ -64,12 +64,14 @@ class UsersRepository implements IUsersRepository {
         return user;
     }
 
-    async delete(idDelete: string): Promise<void> {
-        await prisma.users.delete({
+    async delete(id_user: string): Promise<void> {
+        const deleteUser = await prisma.users.delete({
             where: {
-                id_user: idDelete,
+                id_user,
             },
         });
+
+        return null;
     }
 
     async filter(email?: string, name?: string): Promise<Users[]> {
@@ -87,6 +89,19 @@ class UsersRepository implements IUsersRepository {
                         },
                     },
                 ],
+            },
+        });
+
+        return user;
+    }
+
+    async updateRole({ id_user, id_role }: IUpdateUserDTO): Promise<Users> {
+        const user = await prisma.users.update({
+            where: {
+                id_user,
+            },
+            data: {
+                permissionsId_permission: id_role,
             },
         });
 

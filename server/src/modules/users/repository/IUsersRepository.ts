@@ -9,8 +9,9 @@ interface IUsersRepository {
     findById(id_user: string): Promise<Users>;
     listUsers(): Promise<Users[]>;
     update(data: IUpdateUserDTO): Promise<Users>;
-    delete(idDelete: string): Promise<void>;
+    delete(id_user: string): Promise<void>;
     filter(email?: string, name?: string): Promise<Users[]>;
+    updateRole(data: IUpdateUserDTO): Promise<Users>;
 }
 
 export { IUsersRepository };

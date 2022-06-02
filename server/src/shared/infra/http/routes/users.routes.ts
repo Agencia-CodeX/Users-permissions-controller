@@ -4,6 +4,7 @@ import { DeleteUserController } from "src/modules/users/useCases/deleteUser/Dele
 import { FilterUsersController } from "src/modules/users/useCases/filterUsers/FilterUsersController";
 import { ListUsersController } from "src/modules/users/useCases/listUsers/ListUsersController";
 import { UpdateUserController } from "src/modules/users/useCases/updateUser/UpdateUserController";
+import { UpdateUserRoleController } from "src/modules/users/useCases/updateUserRole/UpdateUserRoleController";
 
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticate";
 
@@ -13,11 +14,13 @@ const listUsersController = new ListUsersController();
 const updateUserController = new UpdateUserController();
 const deleteUserController = new DeleteUserController();
 const filterUsersController = new FilterUsersController();
+const updateUserRole = new UpdateUserRoleController();
 
 usersRouter.post("/", createUserController.handle);
 usersRouter.get("/", listUsersController.handle);
 usersRouter.put("/", ensureAuthenticated, updateUserController.handle);
 usersRouter.delete("/:id", deleteUserController.handle);
 usersRouter.get("/filter", filterUsersController.handle);
+usersRouter.patch("/role", ensureAuthenticated, updateUserRole.handle);
 
 export { usersRouter };

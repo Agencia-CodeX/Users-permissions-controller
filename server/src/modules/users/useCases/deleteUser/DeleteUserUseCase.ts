@@ -8,8 +8,8 @@ class DeleteUserUseCase {
         @inject("UsersRepository")
         private usersRepository: IUsersRepository
     ) {}
-    async execute(userDelete: string) {
-        await this.usersRepository.delete(userDelete);
+    async execute(idDelete: string) {
+        await this.usersRepository.delete(idDelete);
     }
 }
 

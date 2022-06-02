@@ -11,38 +11,31 @@ datasource db {
 }
 
 model Users {
-    id_user    String   @id @default(uuid())
-    name       String
-    email      String   @unique
-    password   String
-    supervisor String?  @db.Uuid
-    created_at DateTime @default(now())
+    id_user                  String        @id @default(uuid())
+    name                     String
+    email                    String        @unique
+    password                 String
+    supervisor               String?       @db.Uuid
+    created_at               DateTime      @default(now())
+    role                     Permissions?   @relation(fields: [permissionsId_permission], references: [id_permission], onDelete: Cascade) 
+    permissionsId_permission Int?
+    usersTokens              usersTokens[]
 
-    userRole    userRole[]
-    usersTokens usersTokens[]
     @@map("users")
 }
 
 model Permissions {
-    id_permission Int        @id @default(autoincrement())
-    role          String     @unique
-    userRole      userRole[]
+    id_permission Int    @id @default(autoincrement())
+    role          String @unique
 
+    Users Users[]
     @@map("permissions")
-}
-
-model userRole {
-    id_user_role             String      @id @default(uuid())
-    fk_user                  Users?       @relation(fields: [usersId_user], references: [id_user])
-    usersId_user             String?
-    fk_role                  Permissions @relation(fields: [permissionsId_permission], references: [id_permission])
-    permissionsId_permission Int
 }
 
 model usersTokens {
     id_token        String   @id @default(uuid())
     refresh_token   String
-    fk_user_id_user Users?    @relation(fields: [usersId_user], references: [id_user])
+    fk_user_id_user Users?   @relation(fields: [usersId_user], references: [id_user], onDelete: Cascade)
     usersId_user    String?
     expires_date    DateTime
     created_at      DateTime @default(now())
