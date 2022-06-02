@@ -29,7 +29,7 @@ export function Sidebar() {
 
     return (
         <Flex
-            minW="400px"
+            minW="300px"
             minH="100vh"
             bgColor="darkBlue.100"
             flexDirection="column"

@@ -4,6 +4,7 @@ import { api } from "../api";
 type User = {
     id: string;
     name: string;
+    image?: string;
     email: string;
     role: string;
     createdAt: string;
@@ -28,8 +29,29 @@ export async function getUsers(): Promise<User[]> {
     return users;
 }
 
-export function useUsers() {
-    return useQuery('recentAddedUsers', getUsers, {
-        staleTime: 1000 * 5,
+export async function getRecentUsers(): Promise<User[]> {
+    // Teste
+    const { data } = await api.get('users');
+    const recentUsers = (data.users.slice(0, 4))
+    const users = recentUsers.map(user => {
+        return {
+            id: user.id,
+            image: user.image,
+            name: user.name,
+            role: user.role,
+            createdAt: new Date(user.createdAt).toLocaleDateString("pt-BR", {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric',
+            })
+        }
+    })
+
+    return users;
+}
+
+export function useUsers(queryKey: string, getUsers: () => Promise<User[]>, freshTime: number) {
+    return useQuery(queryKey, getUsers, {
+        staleTime: 1000 * freshTime,
     })
 }

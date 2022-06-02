@@ -1,13 +1,12 @@
-import { Flex, Box, Heading, Link, Table, Thead, Tr, Th, Checkbox, useBreakpointValue, Tbody, Spinner, Td, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormLabel, Select, } from "@chakra-ui/react";
+import { Flex, Box, Heading, Link, Table, Thead, Tr, Th, Checkbox, useBreakpointValue, Tbody, Spinner, Td, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormLabel, Select, Button, } from "@chakra-ui/react";
 import { Input } from "../../components/Form/Input";
 import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
-import { useUsers } from "../../services/hooks/useUsers";
-
+import { getUsers, useUsers } from "../../services/hooks/useUsers";
 
 export default function Users() {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { data, isLoading, error } = useUsers();
+    const { data, isLoading, isFetching, error } = useUsers("users", getUsers, 10);
 
     const isWideVersion = useBreakpointValue({
         base: false,
@@ -31,8 +30,11 @@ export default function Users() {
                         align="center"
                         justify="space-between"
                         p="30px"
-                    >
-                        <Heading>Usuarios</Heading>
+                    >   
+                        <Flex gap="20px" alignItems="center">
+                            <Heading>Usuarios</Heading>
+                            {!isLoading && isFetching && (<Spinner/>)}
+                        </Flex>
                         <Link
                             onClick={onOpen}
                             w="100px"
@@ -108,6 +110,25 @@ export default function Users() {
                                         <option style={{ color: 'white', backgroundColor: "#212936" }}>placeholder</option>
                                     </Select>
                                 </Box>
+            
+                                <Button 
+                                    w="full"
+                                    h="80px"
+                                    px="20px"
+                                    mt="40px"
+                                    borderRadius="lg"
+                                    display="flex"
+                                    alignItems="center"
+                                    backgroundColor="lightBlue.100"
+                                    justifyContent="center"
+                                    boxShadow="0 5px 5px rgba(0,0,0,.3)"
+                                    _hover={{
+                                        textDecoration: "none",
+                                        backgroundColor:"lightBlue.50"
+                                    }}
+                                >
+                                    Cadastrar
+                                </Button>
                             </form>
                         </ModalBody>
                     </ModalContent>
