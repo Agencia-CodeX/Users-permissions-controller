@@ -33,8 +33,8 @@ model Permissions {
 
 model userRole {
     id_user_role             String      @id @default(uuid())
-    fk_user                  Users       @relation(fields: [usersId_user], references: [id_user])
-    usersId_user             String
+    fk_user                  Users?       @relation(fields: [usersId_user], references: [id_user])
+    usersId_user             String?
     fk_role                  Permissions @relation(fields: [permissionsId_permission], references: [id_permission])
     permissionsId_permission Int
 }
@@ -42,8 +42,8 @@ model userRole {
 model usersTokens {
     id_token        String   @id @default(uuid())
     refresh_token   String
-    fk_user_id_user Users    @relation(fields: [usersId_user], references: [id_user])
-    usersId_user    String
+    fk_user_id_user Users?    @relation(fields: [usersId_user], references: [id_user])
+    usersId_user    String?
     expires_date    DateTime
     created_at      DateTime @default(now())
 }
