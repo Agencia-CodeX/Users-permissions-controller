@@ -69,26 +69,38 @@ class UsersRepository implements IUsersRepository {
             where: {
                 id_user,
             },
+            select: {
+                name: true,
+                email: true,
+            },
         });
 
-        return null;
+        return deleteUser;
     }
 
-    async filter(email?: string, name?: string): Promise<Users[]> {
+    async filter(search: string): Promise<Users[]> {
         const user = await prisma.users.findMany({
+            select: {
+                id_user: true,
+                name: true,
+                email: true,
+            },
             where: {
                 OR: [
                     {
                         email: {
-                            contains: email,
+                            contains: search,
                         },
                     },
                     {
                         name: {
-                            contains: name,
+                            contains: search,
                         },
                     },
                 ],
+            },
+            orderBy: {
+                created_at: "desc",
             },
         });
 

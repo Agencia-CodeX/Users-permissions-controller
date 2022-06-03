@@ -10,7 +10,7 @@ interface IUsersRepository {
     listUsers(): Promise<Users[]>;
     update(data: IUpdateUserDTO): Promise<Users>;
     delete(id_user: string): Promise<void>;
-    filter(email?: string, name?: string): Promise<Users[]>;
+    filter(search: string): Promise<Users[]>;
     updateRole(data: IUpdateUserDTO): Promise<Users>;
 }
 

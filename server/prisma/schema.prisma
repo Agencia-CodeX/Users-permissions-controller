@@ -11,25 +11,32 @@ datasource db {
 }
 
 model Users {
-    id_user                  String        @id @default(uuid())
-    name                     String
-    email                    String        @unique
-    password                 String
-    supervisor               String?       @db.Uuid
-    created_at               DateTime      @default(now())
-    role                     Permissions?   @relation(fields: [permissionsId_permission], references: [id_permission], onDelete: Cascade) 
-    permissionsId_permission Int?
-    usersTokens              usersTokens[]
+    id_user    String   @id @default(uuid())
+    name       String
+    email      String   @unique
+    password   String
+    supervisor String?  @db.Uuid
+    created_at DateTime @default(now())
 
+    userRole    userRole[]
+    usersTokens usersTokens[]
     @@map("users")
 }
 
 model Permissions {
-    id_permission Int    @id @default(autoincrement())
-    role          String @unique
+    id_permission Int        @id @default(autoincrement())
+    role          String     @unique @default("USER")
+    userRole      userRole[]
 
-    Users Users[]
     @@map("permissions")
+}
+
+model userRole {
+    id_user_role             String      @id @default(uuid())
+    fk_user                  Users       @relation(fields: [usersId_user], references: [id_user], onDelete: Cascade)
+    usersId_user             String
+    fk_role                  Permissions @relation(fields: [permissionsId_permission], references: [id_permission], onDelete: Cascade)
+    permissionsId_permission Int
 }
 
 model usersTokens {

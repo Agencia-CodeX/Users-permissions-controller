@@ -5,12 +5,11 @@ import { FilterUsersUseCase } from "./FilterUsersUseCase";
 
 class FilterUsersController {
     async handle(request: Request, response: Response) {
-        const name = request.query.name as string;
-        const email = request.query.email as string;
+        const search = request.query.search as string;
 
         const filterUsersUseCase = container.resolve(FilterUsersUseCase);
 
-        const users = await filterUsersUseCase.execute(email, name);
+        const users = await filterUsersUseCase.execute(search);
 
         return response.json(users);
     }

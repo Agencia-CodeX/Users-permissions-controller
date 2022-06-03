@@ -8,8 +8,8 @@ class FilterUsersUseCase {
         @inject("UsersRepository")
         private usersRepository: IUsersRepository
     ) {}
-    async execute(email?: string, name?: string) {
-        const users = await this.usersRepository.filter(email, name);
+    async execute(search: string) {
+        const users = await this.usersRepository.filter(search);
 
         return users;
     }

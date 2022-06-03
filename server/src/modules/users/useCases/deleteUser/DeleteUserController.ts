@@ -5,13 +5,13 @@ import { DeleteUserUseCase } from "./DeleteUserUseCase";
 
 class DeleteUserController {
     async handle(request: Request, response: Response) {
-        const { idDelete } = request.params;
+        const { id } = request.params;
 
         const deleteUserUseCase = container.resolve(DeleteUserUseCase);
 
-        await deleteUserUseCase.execute(idDelete);
+        const user = await deleteUserUseCase.execute(id);
 
-        return response.send();
+        return response.status(200).json(user);
     }
 }
 
