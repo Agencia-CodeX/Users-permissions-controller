@@ -4,7 +4,10 @@ import { Users } from "@prisma/client";
 
 import { ICreateUsersDTO } from "../../dtos/ICreateUsersDTO";
 import { IUpdateUserDTO } from "../../dtos/IUpdateUserDTO";
-import { IUsersRepository } from "../../repository/IUsersRepository";
+import {
+    IUsersRepository,
+    UserBasicInfo,
+} from "../../repository/IUsersRepository";
 
 class UsersRepository implements IUsersRepository {
     async create({
@@ -64,12 +67,13 @@ class UsersRepository implements IUsersRepository {
         return user;
     }
 
-    async delete(id_user: string): Promise<void> {
+    async delete(id_user: string): Promise<UserBasicInfo> {
         const deleteUser = await prisma.users.delete({
             where: {
                 id_user,
             },
             select: {
+                id_user: true,
                 name: true,
                 email: true,
             },
@@ -78,7 +82,7 @@ class UsersRepository implements IUsersRepository {
         return deleteUser;
     }
 
-    async filter(search: string): Promise<Users[]> {
+    async filter(search: string): Promise<UserBasicInfo[]> {
         const user = await prisma.users.findMany({
             select: {
                 id_user: true,
@@ -101,19 +105,6 @@ class UsersRepository implements IUsersRepository {
             },
             orderBy: {
                 created_at: "desc",
-            },
-        });
-
-        return user;
-    }
-
-    async updateRole({ id_user, id_role }: IUpdateUserDTO): Promise<Users> {
-        const user = await prisma.users.update({
-            where: {
-                id_user,
-            },
-            data: {
-                permissionsId_permission: id_role,
             },
         });
 

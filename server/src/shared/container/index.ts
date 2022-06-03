@@ -1,3 +1,5 @@
+import { PermissionsRepository } from "src/modules/permissions/infra/repository/PermissionsRepository";
+import { IPermissionsRepository } from "src/modules/permissions/repository/IPermissionsRepository";
 import { UsersRepository } from "src/modules/users/infra/repository/UsersRepository";
 import { UsersTokenRepository } from "src/modules/users/infra/repository/UsersTokenRepository";
 import { IUsersRepository } from "src/modules/users/repository/IUsersRepository";
@@ -14,4 +16,9 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<IUsersTokenRepository>(
     "UsersTokenRepository",
     UsersTokenRepository
+);
+
+container.registerSingleton<IPermissionsRepository>(
+    "PermissionsRepository",
+    PermissionsRepository
 );
