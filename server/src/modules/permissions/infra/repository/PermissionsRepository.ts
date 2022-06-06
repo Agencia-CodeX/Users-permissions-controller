@@ -15,6 +15,28 @@ class PermissionsRepository implements IPermissionsRepository {
 
         return permission;
     }
+
+    async updateName(
+        name: string,
+        id_permission: number
+    ): Promise<Permissions> {
+        const permission = await prisma.permissions.update({
+            data: {
+                role: name,
+            },
+            where: {
+                id_permission,
+            },
+        });
+
+        return permission;
+    }
+
+    async list(): Promise<Permissions[]> {
+        const permissions = await prisma.permissions.findMany();
+
+        return permissions;
+    }
 }
 
 export { PermissionsRepository };
