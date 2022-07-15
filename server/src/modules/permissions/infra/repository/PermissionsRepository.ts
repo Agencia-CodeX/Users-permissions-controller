@@ -37,6 +37,24 @@ class PermissionsRepository implements IPermissionsRepository {
 
         return permissions;
     }
+
+    async delete(id_permission: number): Promise<void> {
+        await prisma.permissions.delete({
+            where: {
+                id_permission,
+            },
+        });
+    }
+
+    async findById(id_permission: number): Promise<Permissions> {
+        const permission = await prisma.permissions.findUnique({
+            where: {
+                id_permission,
+            },
+        });
+
+        return permission;
+    }
 }
 
 export { PermissionsRepository };

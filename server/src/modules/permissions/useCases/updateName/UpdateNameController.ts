@@ -5,11 +5,14 @@ import { UpdateNameUseCase } from "./UpdateNameUseCase";
 
 class UpdateNameController {
     async handle(request: Request, response: Response) {
-        const { name } = request.body;
+        const { name, id_permission } = request.body;
 
         const updateNameUseCase = container.resolve(UpdateNameUseCase);
 
-        await updateNameUseCase.execute(name);
+        await updateNameUseCase.execute({
+            id_permission,
+            name,
+        });
 
         return response.send();
     }
