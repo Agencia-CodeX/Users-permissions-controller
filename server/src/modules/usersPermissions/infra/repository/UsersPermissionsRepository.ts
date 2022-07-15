@@ -19,6 +19,16 @@ class UsersPermissionsRepository implements IUsersPermissionsRepository {
 
         return userPermission;
     }
+
+    async list(id_user: string): Promise<userRole[]> {
+        const userPermissions = await prisma.userRole.findMany({
+            where: {
+                usersId_user: id_user,
+            },
+        });
+
+        return userPermissions;
+    }
 }
 
 export { UsersPermissionsRepository };
