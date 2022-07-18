@@ -1,12 +1,11 @@
-import { Avatar, Box, Flex, Spinner, Table, Tbody, Td, Text, Thead, Tr, useBreakpointValue } from "@chakra-ui/react";
+import { Avatar, Flex, Spinner, Table, Tbody, Td, Text, Tr, useBreakpointValue, useRadio } from "@chakra-ui/react";
 import { ChartComponent } from "../components/ChartComponent";
 import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
 import { getRecentUsers, useUsers } from "../services/hooks/useUsers";
 
 export default function Dashboard() {
-    const { data, isLoading, isFetching } = useUsers("recentAddUsers", getRecentUsers, 10);
-
+    const { data, isLoading, isFetching } = useUsers("recentAddUsers", getRecentUsers, 2);
     const isWideVersion = useBreakpointValue({
         base: false,
         xl: true,
@@ -73,9 +72,10 @@ export default function Dashboard() {
                                         {data.map(user => {
                                             return (
                                                 <Tr key={user.id}>
-                                                    <Td w="25%"><Avatar src={user.image} name={user.name} /></Td>
-                                                    <Td w="33%"><Text>{user.name}</Text></Td>
-                                                    <Td w="33%"><Text>{user.role}</Text></Td>
+                                                    <Td><Avatar src={user.image} name={user.name} /></Td>
+                                                    <Td><Text>{user.name}</Text></Td>
+                                                    <Td><Text>{user.role}</Text></Td>
+                                                    <Td><Text>{user.createdAt}</Text></Td>
                                                 </Tr>
                                             )
                                         }

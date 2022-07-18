@@ -1,11 +1,15 @@
 import { Flex, Icon, IconButton, Text, useBreakpointValue } from "@chakra-ui/react";
+import { useContext } from "react";
 import { BsPersonFill } from "react-icons/bs";
 import { RiErrorWarningFill, RiMenuLine, RiNotification2Fill, RiTaskFill } from "react-icons/ri";
+import { AuthContext } from "../../contexts/AuthContext";
 import { useSidebarDrawer } from "../../contexts/SidebarDrawerContext";
 import { BoxNotification } from "./BoxNotification";
 
 export function Header() {
     const { onOpen } = useSidebarDrawer();
+
+    const { user } = useContext(AuthContext);
 
     const isWideVersion = useBreakpointValue({
         base: false,
@@ -46,7 +50,7 @@ export function Header() {
                 justify="center"
                 mx="25px"
             >
-                <Text fontSize={["16px", "16px", "25px", "30px"]}>Seja bem vindo, Gustavo Soares</Text>
+                <Text fontSize={["16px", "16px", "25px", "30px"]}>Seja bem vindo, {user?.name}</Text>
             </Flex>
 
             {
