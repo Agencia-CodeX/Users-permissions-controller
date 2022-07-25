@@ -29,6 +29,14 @@ class UsersPermissionsRepository implements IUsersPermissionsRepository {
 
         return userPermissions;
     }
+
+    async delete(id_user_role: string): Promise<void> {
+        const deleteUserPermission = await prisma.userRole.delete({
+            where: {
+                id_user_role,
+            },
+        });
+    }
 }
 
 export { UsersPermissionsRepository };
