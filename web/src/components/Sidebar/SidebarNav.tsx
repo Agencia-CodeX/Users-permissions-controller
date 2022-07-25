@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import { RiDashboard2Line } from "react-icons/ri";
+import { signOut } from "../../contexts/AuthContext";
 import { NavLink } from "./NavLink";
 
 export function SidebarNav() {
@@ -14,8 +15,23 @@ export function SidebarNav() {
         >
             <NavLink href="/dashboard" icon={RiDashboard2Line} hoverColor="lightBlue.100">Dashboard</NavLink>
             <NavLink href="/users" icon={RiDashboard2Line} hoverColor="lightBlue.100">Listar usuarios</NavLink>
-            <NavLink href="#" icon={RiDashboard2Line} hoverColor="lightBlue.100">Ver chamados</NavLink>
-            <NavLink href="#" icon={RiDashboard2Line} hoverColor="red.600">Sair</NavLink>
+            <NavLink
+                href="#"
+                icon={RiDashboard2Line}
+                hoverColor="lightBlue.100"
+
+            >
+                Ver chamados
+            </NavLink>
+            <NavLink
+                href="/"
+                icon={RiDashboard2Line}
+                hoverColor="red.600"
+                onClick={signOut}
+                shouldMatchExactHref={true}
+            >
+                Sair
+            </NavLink>
         </Flex>
     )
 }

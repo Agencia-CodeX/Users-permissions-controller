@@ -7,12 +7,14 @@ interface NavLinkProps extends ChakraLinkProps {
     children: string;
     href: string;
     hoverColor: string;
+    shouldMatchExactHref?: boolean;
 }
 
-export function NavLink({ icon, href, children, hoverColor, ...rest }: NavLinkProps) {
+export function NavLink({ icon, href, children, hoverColor, shouldMatchExactHref = false, ...rest }: NavLinkProps) {
     return (
         <ActiveLink
             href={href} passHref
+            shouldMatchExactHref
         >
             <Link
                 w="full"
