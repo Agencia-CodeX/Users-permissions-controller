@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
-import { CreateUserPermissionUseCase } from "./createUserPermissionUseCase";
+import { CreateUserPermissionUseCase } from "./CreateUserPermissionUseCase";
 
 class CreateUserPermissionController {
     async handle(request: Request, response: Response) {
