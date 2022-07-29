@@ -17,7 +17,15 @@ usersPermissionsRoutes.post(
     createUsersPermissionsController.handle
 );
 
-usersPermissionsRoutes.get("/", listUserPermissionsController.handle);
-usersPermissionsRoutes.delete("/", deleteUserPermissionController.handle);
+usersPermissionsRoutes.get(
+    "/",
+    ensureAuthenticated,
+    listUserPermissionsController.handle
+);
+usersPermissionsRoutes.delete(
+    "/",
+    ensureAuthenticated,
+    deleteUserPermissionController.handle
+);
 
 export { usersPermissionsRoutes };

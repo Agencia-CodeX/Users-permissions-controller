@@ -8,6 +8,7 @@ import { UpdateUserController } from "src/modules/users/useCases/updateUser/Upda
 import { UpdateUserRoleController } from "src/modules/users/useCases/updateUserRole/UpdateUserRoleController";
 
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticate";
+import { ensureHaveTIPermission } from "../middlewares/ensureHaveTIPermission";
 
 const usersRouter = Router();
 const createUserController = new CreateUserController();
@@ -22,11 +23,13 @@ usersRouter.post("/", createUserController.handle);
 usersRouter.get("/", listUsersController.handle);
 usersRouter.get("/info", ensureAuthenticated, getUserInfoController.handle);
 usersRouter.put("/", ensureAuthenticated, updateUserController.handle);
-usersRouter.delete("/:id", deleteUserController.handle);
+usersRouter.delete(
+    "/:id",
+    ensureAuthenticated,
+    ensureHaveTIPermission,
+    deleteUserController.handle
+);
 usersRouter.get("/filter", filterUsersController.handle);
 usersRouter.patch("/role", ensureAuthenticated, updateUserRole.handle);
 
 export { usersRouter };
-
-
-// token > token id -> 

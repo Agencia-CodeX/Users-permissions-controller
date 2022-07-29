@@ -19,8 +19,16 @@ permissionsRoutes.post(
     createPermissionController.handle
 );
 
-permissionsRoutes.patch("/", updateNameController.handle);
-permissionsRoutes.get("/", listPermissionsController.handle);
-permissionsRoutes.delete("/", deletePermissionController.handle);
+permissionsRoutes.patch("/", ensureAuthenticated, updateNameController.handle);
+permissionsRoutes.get(
+    "/",
+    ensureAuthenticated,
+    listPermissionsController.handle
+);
+permissionsRoutes.delete(
+    "/",
+    ensureAuthenticated,
+    deletePermissionController.handle
+);
 
 export { permissionsRoutes };

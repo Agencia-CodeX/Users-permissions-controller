@@ -20,6 +20,7 @@ model Users {
 
     userRole    userRole[]
     usersTokens usersTokens[]
+
     @@map("users")
 }
 
@@ -33,7 +34,7 @@ model Permissions {
 
 model userRole {
     id_user_role             String      @id @default(uuid())
-    fk_user                  Users       @relation(fields: [usersId_user], references: [id_user], onDelete: Cascade)
+    fk_user                  Users     @relation(fields: [usersId_user], references: [id_user], onDelete: Cascade)
     usersId_user             String
     fk_role                  Permissions @relation(fields: [permissionsId_permission], references: [id_permission], onDelete: Cascade, onUpdate: Cascade)
     permissionsId_permission Int
